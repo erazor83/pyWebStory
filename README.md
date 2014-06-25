@@ -37,3 +37,11 @@ What you need...
   * ws4py
   * pyyaml
 
+How to run...
+----------
+<code>
+./run.py
+</code>
+
+Fire up your webserver and got to something like http://localhost:8088 .
+
