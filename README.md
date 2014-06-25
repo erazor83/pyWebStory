@@ -13,7 +13,7 @@ pyWebStory uses HTML5 Websockets and forks a thread for every active user, who'l
 
 Why?
 ----------
-So yeah, I played some [[www.ragsgame.com|RAGS]] games in the past and really likes them. Major issue seems to be the huge size, loading times (for example some games were about hundreds of megabytes and loading and saving took minutes) and even save and load with different game-versions was problematic.
+So yeah, I played some [RAGS](www.ragsgame.com) games in the past and really likes them. Major issue seems to be the huge size, loading times (for example some games were about hundreds of megabytes and loading and saving took minutes) and even save and load with different game-versions was problematic.
 
 My idea was to combine the flexibility of HTML/JavaScript and Python.
 
@@ -36,12 +36,19 @@ What you need...
   * pycherry
   * ws4py
   * pyyaml
+  * my version of erazor83/lamegame_cherrypy_authority
 
+
+
+For lamegame_cherrypy_authority:
+```
+cd pyWebStory
+git clone https://github.com/erazor83/lamegame_cherrypy_authority
+```
 How to run...
 ----------
-<code>
+```
 ./run.py
-</code>
-
+```
 Fire up your webserver and got to something like http://localhost:8088 .
 
