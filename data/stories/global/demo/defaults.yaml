@@ -1,0 +1,5 @@
+world:
+user:
+  health: 100
+  images:
+        default: default.png

@@ -1,0 +1,75 @@
+#background {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+	z-Index: 1;
+}
+#background img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+	z-Index: 1;
+}
+
+div.small_story_icon {
+	border: 1px solid #555555;
+	width: 80px;
+	height:50px;
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+
+div.small_story_icon_action {
+	border: 1px solid #555555;
+	width: 80px;
+	height:50px;
+	display: block;
+	position: relative;
+	cursor: pointer;
+	padding: 5px;
+	background-color: #f0f0f0;
+	overflow: hidden;
+}
+
+label {
+	display: inline-block;
+	width: 5em;
+}
+  
+table.story_overlay_table {
+	table-layout: fixed;
+}
+table.story_overlay_table th {
+	width:80px;
+	text-align:left;
+}
+table.story_overlay_table td {
+	text-align:left;
+}
+table.story_overlay_table td.description {
+	margin-top:5px;
+	text-align:left;
+}
+
+table.story_save_overlay_table {
+	table-layout: fixed;
+}
+table.story_save_overlay_table th {
+	width:100px;
+	text-align:left;
+}
+table.story_save_overlay_table td {
+	text-align:left;
+}
+table.story_save_overlay_table td.description {
+	margin-top:5px;
+	text-align:left;
+}

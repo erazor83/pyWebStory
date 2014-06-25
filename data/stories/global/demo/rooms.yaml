@@ -1,0 +1,45 @@
+rooms:
+  front_door:
+    caption: front door
+    image: front_door.gif
+    description:
+      text: This is the front door.
+  hallway:
+    caption: hallway
+    image: hallway.jpg
+    description:
+      text: A nice but small hallway.
+  bathroom:
+    caption: bathroom
+    image: bathroom.jpg
+    description:
+      text: A normal bathroom.
+  lab:
+    caption: lab
+    image: lab.jpg
+    description:
+      text: The lab! Looks messy in here.
+    actions: [examine]
+  lab_secret_entrance:
+    caption: secret entrance
+    image: lab_secret_entrance.jpg
+    description:
+      text: A strange door...
+    hidden:  True
+      
+room-map:
+  front_door:
+    E: hallway
+  hallway:
+    W: front_door
+    N: bathroom
+    S: lab
+  bathroom:
+    S: hallway
+  lab:
+    N: hallway
+    Down: lab_secret_entrance
+  lab_secret_entrance:
+    Up: lab
+  
+    
