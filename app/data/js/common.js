@@ -120,18 +120,35 @@ function show_About(){
 	w2popup.open({
 		title   : 'About PyWebStory',
 		body    : 
-		'An interactive story telling engine using: <br/>'+
-		'<ul>'+
-			'<li>cheeryPy + lameauthority + websockets</li>'+
-			'<li>jQuery</li>'+
-			'<li>jQueryUi</li>'+
-			'<li>W2UI</li>'+
-			'<li>JQWidgets</li>'+
-			'<li>Portal</li>'+
-			'<li>jQuery-dateFormat</li>'+
-		'</ul>'+
-		'<br/>'+
-		'Thanks to all supporters!</br>'+
-		'<div style="bottom:2px;right:2px;position:fixed">&copy; 2014 Alexander \'E-Razor\' Krause</div>'
+		'<table style="width:100%;height:100%">'+
+			'<tr>'+
+				'<td>'+
+					'An interactive story telling engine using:'+
+				'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>'+
+					'<ul>'+
+						'<li>cheeryPy + lameauthority + websockets</li>'+
+						'<li>jQuery</li>'+
+						'<li>jQueryUi</li>'+
+						'<li>W2UI</li>'+
+						'<li>JQWidgets</li>'+
+						'<li>Portal</li>'+
+						'<li>jQuery-dateFormat</li>'+
+						'<li>font-awesome</li>'+
+					'</ul>'+
+				'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>'+
+					'Thanks to all supporters!</br>'+
+				'</td>'+
+			'<tr>'+
+				'<td style="text-align:right">'+
+					'&copy; 2014 Alexander \'E-Razor\' Krause'+
+				'</td>'+
+			'</tr>'+
+		'</table>'
 	});
 }

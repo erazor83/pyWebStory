@@ -274,20 +274,20 @@ $(function () {
 		name: 'top_toolbar',
 		items: [
 			{ type: 'menu',   id: 'menu', caption: StoryInfo['name'], overflow: 'hidden',items: [
-				{ text: 'New', icon: 'fa-star' }, 
-				{ text: 'Save', icon: 'icon-page' }, 
-				{ text: 'Load', icon: 'icon-page' },
-				{ text: 'Exit', icon: 'icon-home' },
+				{ text: 'New', icon: 'fa fa-repeat fa-fw' }, 
+				{ text: 'Save', icon: 'fa fa-save fa-fw' }, 
+				{ text: 'Load', icon: 'fa fa-paste fa-fw' },
+				{ text: 'Exit', icon: 'fa fa-ban fa-fw' },
 			]},
 			{ type: 'break',  id: 'break0' },
 			{ type: 'html',  id: 'story_version', html: StoryInfo['version']},
 			{ type: 'spacer' },
 			{ type: 'break',  id: 'break0' },
-			{ id: 'bt_ql', type: 'button', caption: 'Quick-Load', img: 'icon-page' },
-			{ id: 'bt_qs', type: 'button', caption: 'Quick-Save', img: 'icon-page' },
+			{ id: 'bt_ql', type: 'button', caption: 'Quick-Load', img: 'fa fa-paste fa-fw' },
+			{ id: 'bt_qs', type: 'button', caption: 'Quick-Save', icon: 'fa fa-save fa-fw' },
 			{ type: 'spacer' },
 			{ type: 'break',  id: 'break0' },
-			{ id: 'bt_about', type: 'button', caption: 'About', img: 'icon-comment-alt' },
+			{ id: 'bt_about', type: 'button', caption: 'About', icon: 'fa fa-question-circle fa-fw' },
 		],
 		onClick: function (target, info) {
 			if ((info.item.id == 'menu') &&  info.subItem) {

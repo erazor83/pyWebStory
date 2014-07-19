@@ -80,6 +80,10 @@ if __name__ == '__main__':
 			'tools.staticdir.on': True,
 			'tools.staticdir.dir': os.path.join(PYWEBGAME_PATHS['root'], 'app/data/css/'),
 		},
+		'/fonts':  {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': os.path.join(PYWEBGAME_PATHS['root'], 'app/data/fonts/'),
+		},
 		'/ws': {
 			'tools.websocket.on': True,
 			'tools.websocket.handler_cls': app.WS_handler

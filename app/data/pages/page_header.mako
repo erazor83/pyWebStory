@@ -26,6 +26,8 @@
 	<link rel="stylesheet" type="text/css" href="${css_path}common.css" />
 
 
+	<link rel="stylesheet" type="text/css" href="${css_path}font-awesome.css" />
+
 	<!-- dynamic per page js-files -->
 % for js_file in js_files:
 	<script type="text/javascript" src="${js_file}"></script>
