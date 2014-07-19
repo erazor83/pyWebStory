@@ -47,8 +47,37 @@ if __name__ == '__main__':
 	_inheritGlobals()
 	
 	# Set up site-wide config first so we get a log if errors occur.
+<<<<<<< HEAD
 	conf=yaml.load(file(os.path.join(PYWEBGAME_PATHS['conf'],'default.yaml'),'r'))
 	cherrypy.config.update(conf)
+=======
+	cherrypy.config.update(
+		{
+			'environment': 				'production',
+			'log.error_file':			'site.log',
+			'server.socket_host':	'0.0.0.0',
+			'server.socket_port':	8088,
+			'engine.autoreload.on':True,
+			'log.screen': 				True,
+
+			'tools.lg_authority.on': True, 
+			# Uncomment the following two lines to persist changed user / group data
+			'tools.lg_authority.site_registration': 'email',
+			'tools.lg_authority.site_storage': 			'sqlite3', 
+			'tools.lg_authority.site_storage_conf': {'file': 'auth.db'},
+			'tools.lg_authority.site_template_dir':	'app/data/pages/auth/',
+			'tools.lg_authority.site_email': {
+					'smtpserver': 'erazor-zone.de',
+					'smtpport': 25,
+					'smtpssl': False,
+					'smtpuser': 'web1p1',
+					'smtppass': 'XXX',
+					'default': 'Site <test@example.com>'
+			}
+
+		}
+	)
+>>>>>>> 29e16dd67abbb38880db40c92b38cb5e3bb3b1fb
 
 	#check if we have a local config
 	local_conf=os.path.join(PYWEBGAME_PATHS['conf'],'local.yaml')
