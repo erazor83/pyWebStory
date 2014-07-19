@@ -64,7 +64,7 @@ if __name__ == '__main__':
 					'smtpport': 25,
 					'smtpssl': False,
 					'smtpuser': 'web1p1',
-					'smtppass': 'all4me',
+					'smtppass': 'XXX',
 					'default': 'Site <test@example.com>'
 			}
 
