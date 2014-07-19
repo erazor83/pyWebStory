@@ -1,6 +1,6 @@
 __author__	= """Alexander Krause <alexander.krause@ed-solutions.de>"""
-__date__ 		= "2014-02-16"
-__version__	= "0.0.1"
+__date__ 		= "2014-07-19"
+__version__	= "0.0.2"
 __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 
 """
@@ -70,13 +70,13 @@ def postImport():
 	listStories_Global()
 	
 def listStories_Global():
-	stories_path=PYWEBGAME_PATHS['stories']+'global/'
+	stories_path=os.path.join(PYWEBGAME_PATHS['stories'],'global')
 	for cDir in os.listdir(stories_path):
-		story_path=stories_path+cDir+'/'
+		story_path=os.path.join(stories_path,cDir)
 		if (os.path.isdir(story_path)):
 			try:
-				story_id=md5.new('global/'+cDir).hexdigest()
-				STORY_INFO[story_id]=JSON_Dict(yaml.load(file(story_path+'story.yaml','r')))
+				story_id=md5.new(os.path.join('global',cDir)).hexdigest()
+				STORY_INFO[story_id]=JSON_Dict(yaml.load(file(os.path.join(story_path,'story.yaml'),'r')))
 				STORY_PATHS[story_id]=story_path
 			except yaml.YAMLError, exc:
 				cherrypy.log("Unable to parse story.yaml for %s:"%cFile+"\n"+exc)
@@ -107,7 +107,7 @@ def getStoryData(user_id,story_id):
 def readDefaultStoryData(user_id,story_id):
 	story_path=STORY_PATHS[story_id]
 	try:
-		story_data=yaml.load(file(story_path+'defaults.yaml','r'))
+		story_data=yaml.load(file(os.path.join(story_path,'defaults.yaml'),'r'))
 		story_data['is_new']=True
 		STORY_DATA_LOCK.acquire()
 		try:
@@ -142,22 +142,22 @@ def saveStory(user_id,story_id,name,force_path=None):
 	if not rec.match(name):
 		return "Invalid save name!"
 	try:
-		user_save_path=PYWEBGAME_PATHS['story_saves']+user_id+'/'
+		user_save_path=os.path.join(PYWEBGAME_PATHS['story_saves'],user_id)
 		if not os.path.isdir(user_save_path):
 			cherrypy.log('Creating save-path for user %s '%(user_id))
 			os.mkdir(user_save_path)
 		if force_path:
-			save_path=user_save_path+force_path
+			save_path=os.path.join(user_save_path,force_path)
 		else:
-			save_path=user_save_path+story_id
+			save_path=os.path.join(user_save_path,story_id)
 		if not os.path.isdir(save_path):
 			cherrypy.log('Creating save-path for user %s / story %s'%(user_id,story_id))
 			os.mkdir(save_path)
 			
 		s_instance_key=cherrypy.user.id+'.'+story_id
 		if s_instance_key in STORY_INSTANCES:
-			info_file=file(save_path+'/'+name+'.info.yaml', 'w')
-			data_file=file(save_path+'/'+name+'.data.yaml', 'w')
+			info_file=file(os.path.join(save_path,name+'.info.yaml'), 'w')
+			data_file=file(os.path.join(save_path,name+'.data.yaml'), 'w')
 			data_file.write(
 				yaml.safe_dump(
 					STORY_INSTANCES[s_instance_key].dumpData(),
@@ -192,8 +192,8 @@ def loadStory(user_id,story_id,name):
 	if not rec.match(name):
 		return "Invalid save name!"
 	try:
-		user_save_path=PYWEBGAME_PATHS['story_saves']+user_id+'/'
-		data_file=file(user_save_path+story_id+'/'+name+'.data.yaml', 'r')
+		user_save_path=os.path.join(PYWEBGAME_PATHS['story_saves'],user_id)
+		data_file=file(os.path.join(user_save_path,story_id,name+'.data.yaml'), 'r')
 		file_data=yaml.load(data_file)
 		s_instance_key=cherrypy.user.id+'.'+story_id
 		if not s_instance_key in STORY_INSTANCES:

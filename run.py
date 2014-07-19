@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__	= """Alexander Krause <alexander.krause@ed-solutions.de>"""
-__date__ 		= "2014-02-16"
-__version__	= "0.0.1"
+__date__ 		= "2014-07-19"
+__version__	= "0.1.0"
 __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 
 """
@@ -15,13 +15,16 @@ __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 """
 import os.path
 
+ROOT_PATH=os.path.dirname(os.path.abspath(__file__))
 PYWEBGAME_PATHS ={
-	'root'				:os.path.dirname(os.path.abspath(__file__))+'/',
-	'stories'			:os.path.dirname(os.path.abspath(__file__))+'/data/stories/',
-	'app_data'		:os.path.dirname(os.path.abspath(__file__))+'/app/data/',
-	'story_saves'	:os.path.dirname(os.path.abspath(__file__))+'/data/saves/',
+	'root'				:ROOT_PATH,
+	'conf'				:os.path.join(ROOT_PATH,'conf'),
+	'stories'			:os.path.join(ROOT_PATH,'data','stories'),
+	'app_data'		:os.path.join(ROOT_PATH,'app','data'),
+	'story_saves'	:os.path.join(ROOT_PATH,'data','saves'),
 }
 
+import yaml
 import cherrypy
 
 import app
@@ -44,33 +47,15 @@ if __name__ == '__main__':
 	_inheritGlobals()
 	
 	# Set up site-wide config first so we get a log if errors occur.
-	cherrypy.config.update(
-		{
-			'environment': 				'production',
-			'log.error_file':			'site.log',
-			'server.socket_host':	'0.0.0.0',
-			'server.socket_port':	8088,
-			'engine.autoreload.on':True,
-			'log.screen': 				True,
+	conf=yaml.load(file(os.path.join(PYWEBGAME_PATHS['conf'],'default.yaml'),'r'))
+	cherrypy.config.update(conf)
 
-			'tools.lg_authority.on': True, 
-			# Uncomment the following two lines to persist changed user / group data
-			'tools.lg_authority.site_registration': 'email',
-			'tools.lg_authority.site_storage': 			'sqlite3', 
-			'tools.lg_authority.site_storage_conf': {'file': 'auth.db'},
-			'tools.lg_authority.site_template_dir':	'app/data/pages/auth/',
-			'tools.lg_authority.site_email': {
-					'smtpserver': 'erazor-zone.de',
-					'smtpport': 25,
-					'smtpssl': False,
-					'smtpuser': 'web1p1',
-					'smtppass': 'all4me',
-					'default': 'Site <test@example.com>'
-			}
-
-		}
-	)
-
+	#check if we have a local config
+	local_conf=os.path.join(PYWEBGAME_PATHS['conf'],'local.yaml')
+	if os.path.isfile(local_conf):
+		conf=yaml.load(file(local_conf,'r'))
+		cherrypy.config.update(conf)
+		
 	WebSocketPlugin(cherrypy.engine).subscribe()
 	cherrypy.tools.websocket = WebSocketTool()
  

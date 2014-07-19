@@ -1,7 +1,9 @@
 __author__	= """Alexander Krause <alexander.krause@ed-solutions.de>"""
-__date__ 		= "2014-03-11"
-__version__	= "0.1.0"
+__date__ 		= "2014-07-19"
+__version__	= "0.2.0"
 __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
+
+import cherrypy
 
 PYWEBGAME_PATHS = None
 USER_DATA_LOCK=None
@@ -16,7 +18,7 @@ def getLastStory():
 	return {}
 
 def listSavedStories(user_id,story_id=None):
-	user_save_path=PYWEBGAME_PATHS['story_saves']+user_id+'/'
+	user_save_path=os.path.join(PYWEBGAME_PATHS['story_saves'],user_id)
 	if not os.path.isdir(user_save_path):
 		cherrypy.log('Creating save-path for user %s '%(user_id))
 		os.mkdir(user_save_path)
@@ -29,11 +31,11 @@ def listSavedStories(user_id,story_id=None):
 		
 	saves={}
 	for cID in story_list:
-		save_path=user_save_path+cID+'/'
+		save_path=os.path.join(user_save_path,cID)
 		for cName in os.listdir(save_path):
 			try:
 				if cName.find('.info.yaml')!=-1:
-					info_file=file(save_path+cName, 'r')
+					info_file=file(os.path.join(save_path,cName), 'r')
 					info_data=yaml.load(info_file)
 					if not cID in saves:
 						saves[cID]={}

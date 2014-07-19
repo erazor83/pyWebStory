@@ -1,6 +1,6 @@
 __author__	= """Alexander Krause <alexander.krause@ed-solutions.de>"""
-__date__ 		= "2014-03-11"
-__version__	= "0.1.0"
+__date__ 		= "2014-07-19"
+__version__	= "0.2.0"
 __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 
 """
@@ -69,14 +69,14 @@ class TPL_Helpers():
 		else:
 			url_path=view_name
 		
-		js_folder='js/'+url_path+'/'
-		full_js_folder=PYWEBGAME_PATHS['app_data']+js_folder
+		js_folder=os.path.join('js',url_path)
+		full_js_folder=os.path.join(PYWEBGAME_PATHS['app_data'],js_folder)
 		ret=[]
 		if os.path.exists(full_js_folder):
 			for cFile in os.listdir(full_js_folder):
 				extension = os.path.splitext(cFile)[1]
 				if extension=='.js':
-					ret.append(self.base_path+js_folder+cFile)
+					ret.append(os.path.join(self.base_path,js_folder,cFile))
 		return ret
 
 	def _getCSSFromView(self,view_name):
@@ -86,38 +86,38 @@ class TPL_Helpers():
 		else:
 			url_path=view_name
 		
-		css_folder='css/'+url_path+'/'
-		full_css_folder=PYWEBGAME_PATHS['app_data']+css_folder
+		css_folder=os.path.join('css',url_path)
+		full_css_folder=os.path.join(PYWEBGAME_PATHS['app_data'],css_folder)
 		ret=[]
 		if os.path.exists(full_css_folder):
 			for cFile in os.listdir(full_css_folder):
 				extension = os.path.splitext(cFile)[1]
 				if extension=='.css':
-					ret.append(self.base_path+css_folder+cFile)
+					ret.append(os.path.join(self.base_path,css_folder,cFile))
 		return ret
 
 	def _getJSFromStory(self,story_id):
 		"""get a list of .js files which are located in js/<view_name>/"""
 		
-		full_js_folder=story_tools.STORY_PATHS[story_id]+'js/'
+		full_js_folder=os.path.join(story_tools.STORY_PATHS[story_id],'js')
 		ret=[]
 		if os.path.exists(full_js_folder):
 			for cFile in os.listdir(full_js_folder):
 				extension = os.path.splitext(cFile)[1]
 				if extension=='.js':
-					ret.append(self.base_path+'story/'+story_id+'/js/'+cFile)
+					ret.append(os.path.join(self.base_path,'story',story_id,'js',cFile))
 		return ret
 
 	def _getCSSFromStory(self,story_id):
 		"""get a list of .js files which are located in js/<view_name>/"""
 		
-		full_css_folder=story_tools.STORY_PATHS[story_id]+'css/'
+		full_css_folder=os.path.join(story_tools.STORY_PATHS[story_id],'css')
 		ret=[]
 		if os.path.exists(full_css_folder):
 			for cFile in os.listdir(full_css_folder):
 				extension = os.path.splitext(cFile)[1]
 				if extension=='.css':
-					ret.append(self.base_path+'story/'+story_id+'/css/'+cFile)
+					ret.append(os.path.join(self.base_path,'story',story_id,'css',cFile))
 		return ret
 	
 	
@@ -344,9 +344,9 @@ class Root(object,TPL_Helpers):
 			else:
 				view_name=args[0]
 			return tmpl.render(
-				js_path=self.base_path+"js/",
-				css_path=self.base_path+"css/",
-				ws_path=self.base_path+"ws/",
+				js_path=os.path.join(self.base_path,"js",''),
+				css_path=os.path.join(self.base_path,"css",''),
+				ws_path=os.path.join(self.base_path,"ws",''),
 				base_path=self.base_path,
 				user_id=cherrypy.user.id,
 				user_name=cherrypy.user.name,
@@ -359,13 +359,13 @@ class Root(object,TPL_Helpers):
 				if do=='new':
 					story_id=kwargs['story']
 					story_tools.newStoryInstance(cherrypy.user.id,story_id)
-					raise cherrypy.HTTPRedirect(self.base_path+'story/'+story_id+'/')
+					raise cherrypy.HTTPRedirect(os.path.join(self.base_path,'story',story_id,''))
 				elif do=='load_story':
 					story_id=kwargs['story']
 					save_name=kwargs['name']
 					loaded=story_tools.loadStory(cherrypy.user.id,story_id,save_name)
 					if loaded==True:
-						raise cherrypy.HTTPRedirect(self.base_path+'story/'+story_id+'/')
+						raise cherrypy.HTTPRedirect(os.path.join(self.base_path,'story',story_id,''))
 					else:
 						raise cherrypy.HTTPError(400)
 				
@@ -382,7 +382,7 @@ class Root(object,TPL_Helpers):
 				if len(args)==1:
 					if cherrypy.request.path_info[-1]!='/':
 						#story has to be called as a path
-						raise cherrypy.HTTPRedirect(self.base_path+'story/'+story_id+'/')
+						raise cherrypy.HTTPRedirect(os.path.join(self.base_path,'story',story_id,''))
 					if not story_tools.getStoryData(cherrypy.user.id,story_id):
 						raise cherrypy.HTTPRedirect(self.base_path)
 					view_name='story'
@@ -395,9 +395,9 @@ class Root(object,TPL_Helpers):
 					story_css_files=self._getCSSFromStory(story_id)
 					
 					return tmpl.render(
-						js_path=self.base_path+"js/",
-						css_path=self.base_path+"css/",
-						ws_path=self.base_path+"ws/",
+						js_path=os.path.join(self.base_path,"js",''),
+						css_path=os.path.join(self.base_path,"css",''),
+						ws_path=os.path.join(self.base_path,"ws",''),
 						base_path=self.base_path,
 						story_id=story_id,
 						story_info=story_tools.STORY_INFO[story_id],

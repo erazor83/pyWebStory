@@ -1,6 +1,6 @@
 __author__	= """Alexander Krause <alexander.krause@ed-solutions.de>"""
-__date__ 		= "2014-02-16"
-__version__	= "0.0.1"
+__date__ 		= "2014-07-19"
+__version__	= "0.0.2"
 __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 
 import os
