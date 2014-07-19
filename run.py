@@ -11,7 +11,7 @@ __license__ = "Creative Commons Attribution-NonCommercial 3.0 License."
 	  * pycherry
 	  * ws4py
 	  * pyyaml
-
+	  * my version of lamegame_cherrypy_authority
 """
 import os.path
 
@@ -101,4 +101,3 @@ if __name__ == '__main__':
 					
 	cherrypy.engine.start()
 	cherrypy.engine.block()
-	

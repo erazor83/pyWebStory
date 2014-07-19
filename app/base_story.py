@@ -218,7 +218,7 @@ class Story(Story_with_Websocket,Story_PushEvents):
 	def loadRooms(self):
 		self.Rooms={}
 		try:
-			yaml_file=self.Path+'rooms.yaml'
+			yaml_file=os.path.join(self.Path,'rooms.yaml')
 			if os.path.isfile(yaml_file):
 				data=yaml.load(file(yaml_file,'r'))
 				for cRoom in data['rooms']:
@@ -239,7 +239,7 @@ class Story(Story_with_Websocket,Story_PushEvents):
 
 	def loadPage(self,page_name):
 		try:
-			base_name=self.Path+page_name+'.'
+			base_name=os.path.join(self.Path,page_name+'.')
 			if os.path.isfile(base_name+'_xml'):
 				self.currentPage=xml_render.PageRender(self,page_name)
 				return True
@@ -302,7 +302,7 @@ class Story(Story_with_Websocket,Story_PushEvents):
 				print("manage of story: %s" %self.story_id)
 				if self.WebSocket:
 					#self.send(simplejson.dumps(response), False)
-					self.pushText('Data["i"] = '+ str(self.Data['i'])+'/'+str(id(self)))
-					self.Data['i']=self.Data['i']+1
+					#self.pushText('Data["i"] = '+ str(self.Data['i'])+'/'+str(id(self)))
+					#self.Data['i']=self.Data['i']+1
 					#cherrypy.log(str(self.i))
 					pass

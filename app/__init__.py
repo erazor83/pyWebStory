@@ -409,9 +409,14 @@ class Root(object,TPL_Helpers):
 				else:
 					if args[1] in ['images','js','css']:
 						path='/'.join(args[1:])
+						
 						#make sure no one tries to go out of allowed path
-						base_dir = os.path.realpath(story_tools.STORY_PATHS[story_id]+args[1])
-						final_path = story_tools.STORY_PATHS[story_id]+path
+						paths=[story_tools.STORY_PATHS[story_id]]+list(args[1:])
+						base_dir = os.path.realpath(os.path.join(*paths))
+						
+						paths=[story_tools.STORY_PATHS[story_id]]+list(args[1:])
+						final_path = os.path.join(*paths)
+						
 						if os.path.isfile(final_path) and os.path.commonprefix([base_dir, final_path]) == base_dir:
 							return cherrypy.lib.static.serve_file(final_path)
 					
