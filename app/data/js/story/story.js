@@ -273,7 +273,7 @@ $(function () {
 	$().w2toolbar({
 		name: 'top_toolbar',
 		items: [
-			{ type: 'menu',   id: 'menu', caption: StoryInfo['name'], overflow: 'hidden',items: [
+			{ type: 'menu',   id: 'menu', caption: StoryInfo['name'], overflow: 'hidden', icon: "fa fa-bars fa-fw", items: [
 				{ text: 'New', icon: 'fa fa-repeat fa-fw' }, 
 				{ text: 'Save', icon: 'fa fa-save fa-fw' }, 
 				{ text: 'Load', icon: 'fa fa-paste fa-fw' },

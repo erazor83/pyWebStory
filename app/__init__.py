@@ -234,6 +234,7 @@ class WS_handler(WebSocket):
 			if not self.Story.ManagerThread:
 				self.Story.ManagerThread=story_tools.Manager(self.Story)
 				self.Story.ManagerThread.start()
+				cherrypy.engine.subscribe('stop',self.Story.ManagerThread.stop)
 		else:
 			self.user_id=None
 			
