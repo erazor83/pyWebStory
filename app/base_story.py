@@ -17,28 +17,6 @@ import tools.text.xml_render as xml_render
 import sys
 import traceback
 
-"""	
-	def pushText(self,name):
-		try:
-			base_name=self.Path+name+'.'
-			if os.path.isfile(base_name+'_xml'):
-				self.currentPage=xml_render.TextRender(self,name)
-				txt=self.currentPage.render()
-			elif os.path.isfile(base_name+'mako'):
-				self.currentPage=mako_render.TextRender(self,name)
-				txt=self.currentPage.render()
-
-			if self.WebSocket:
-				self.ws_send('message',txt)
-				
-		except Exception as e:
-			exc_type, exc_value, exc_traceback = sys.exc_info()
-			lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
-			exception_str=''.join('!! ' + line for line in lines)
-			print(exception_str)
-"""
-			
-
 
 class Story_with_Websocket():
 	WebSocket=None
@@ -118,9 +96,10 @@ class Character(StoryObject):
 	
 	def doAction(self,object_type,object_id,action):
 		ident=object_type+'::'+object_id+'.'+action
+		print('action:',ident)
 		
 		if not ident in self.Data['ActionCount']:
-			self.Data['ActionCount'][ident]=0
+			self.Data['ActionCount'][ident]=1
 		else:
 			self.Data['ActionCount'][ident]=self.Data['ActionCount'][ident]+1
 		
@@ -174,7 +153,7 @@ class Story_PushEvents:
 		self.WebSocket=None
 
 	def pushRoomInfo(self,room_name):
-		print(self.Rooms[room_name])
+		print('room-info for client: ',self.Rooms[room_name])
 		self.ws_send(
 			'message',
 			['room::info',self.Rooms[room_name]]
@@ -300,6 +279,7 @@ class Story(Story_with_Websocket,Story_PushEvents):
 				
 			if not self.Data['is_new']:
 				print("manage of story: %s" %self.story_id)
+				print(self.Data)
 				if self.WebSocket:
 					#self.send(simplejson.dumps(response), False)
 					#self.pushText('Data["i"] = '+ str(self.Data['i'])+'/'+str(id(self)))

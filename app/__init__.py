@@ -22,7 +22,7 @@ import time
 
 from mako.template import Template
 from mako.lookup import TemplateLookup
-lookup = TemplateLookup(directories=[current_dir+'/data/pages/'])
+lookup = TemplateLookup(directories=[os.path.join(current_dir,'data','pages')])
 
 from ws4py.server.cherrypyserver import WebSocketPlugin, WebSocketTool
 from ws4py.websocket import WebSocket

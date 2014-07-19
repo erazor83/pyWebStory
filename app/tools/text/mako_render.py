@@ -35,18 +35,17 @@ class PageRender():
 		)
 		kwargs['Page']=self
 		kwargs['StoryData']=self.Story.Data
+		kwargs['Rooms']=self.Story.Rooms
 		kwargs['me']=self.Story.Player
+		#print(self.Story.Player.Data)
+		kwargs['myActionCount']=self.Story.Player.Data['ActionCount']
 		txt=tmpl.render(**kwargs)
 		if self.Sections:
 			if not self.Section:
 				self.sectionIDX=0
 				self.Section=self.Sections[0]
 				#we need to rerender the page
-				txt=tmpl.render(
-					Page=self,
-					StoryData=self.Story.Data,
-					me=self.Story.Player
-				)
+				txt=tmpl.render(**kwargs)
 			if self.Section==self.Sections[-1]:
 				self.Done=True
 			else:
